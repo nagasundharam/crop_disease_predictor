@@ -3,6 +3,8 @@ import cors from "cors";
 import predictorRoutes from "./routes/predictor.js";
 //import geminiRoutes from "./routes/gemini.js";
 import dotenv from "dotenv";
+import cropRoutes from "./routes/cropRoutes.js";
+
 
 
 dotenv.config();
@@ -12,6 +14,11 @@ app.use(express.json());
 
 // Register routes
 app.use("/", predictorRoutes);
+
+
+app.use("/crop", cropRoutes);
+
+
 
 const PORT = process.env.PORT||3001;
 app.listen(PORT, () => {
