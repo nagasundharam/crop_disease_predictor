@@ -1,0 +1,92 @@
+/* Container for both login and register */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #ecfdf5; /* light greenish background */
+  padding: 20px;
+}
+
+/* Form box styling */
+.auth-box {
+  background: #ffffff;
+  padding: 30px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Form heading */
+.auth-box h2 {
+  margin-bottom: 20px;
+  color: #166534; /* green title */
+  font-size: 1.8rem;
+}
+
+/* Input and select styling */
+.auth-box input,
+.auth-box select {
+  width: 100%;
+  padding: 12px 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Button styling */
+.auth-box button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.auth-box button:hover {
+  background: #15803d;
+}
+
+/* Bottom text / link */
+.auth-box p {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.auth-box p span {
+  color: #16a34a;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .auth-box {
+    padding: 20px 16px;
+  }
+
+  .auth-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .auth-box input,
+  .auth-box select {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .auth-box button {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}

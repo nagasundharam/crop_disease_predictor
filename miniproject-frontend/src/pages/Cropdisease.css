@@ -1,0 +1,97 @@
+.crop-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e6f7f1, #f9fff4);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Back button */
+.back-btn {
+  align-self: flex-start;
+  margin-bottom: 10px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #4caf50;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+.back-btn:hover {
+  background: #388e3c;
+}
+
+/* Title */
+.title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #2e7d32;
+  text-align: center;
+}
+
+/* Form styling */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.label {
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"], input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.submit-btn {
+  background: #4caf50;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.submit-btn:hover {
+  background: #388e3c;
+}
+
+/* Result box */
+.result-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 500px;
+}
+
+.preview-img {
+  margin: 12px 0;
+  width: 200px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form, .result-box {
+    width: 90%;
+  }
+  .preview-img {
+    width: 100%;
+  }
+}
