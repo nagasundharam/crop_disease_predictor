@@ -24,9 +24,10 @@ const Cropdisease = () => {
       const formData = new FormData();
       formData.append("plantName", plantName);
       formData.append("image", image);
-
+      const BACKEND_URL =  import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+      console.log("Backend URL:", BACKEND_URL);
       // Send to backend API (update the URL to your server endpoint)
-      const response = await fetch("http://localhost:5000/api/detect", {
+      const response = await fetch(`${BACKEND_URL}/predict`, {
         method: "POST",
         body: formData,
       });
@@ -39,6 +40,7 @@ const Cropdisease = () => {
 
       // Example response: { disease: "Leaf Spot", solution: "Apply fungicide..." }
       setResult(data);
+      console.log("Detection result:", data);
     } catch (error) {
       console.error(error);
       alert("Error detecting plant disease. Try again!");
@@ -95,12 +97,19 @@ const Cropdisease = () => {
 
           <div className="info">
             <p>
-              <strong>🦠 Disease:</strong> {result.disease}
+              <strong>🦠 Disease:</strong> {result.name}
             </p>
             <p>
-              <strong>💡 Solution:</strong> {result.solution}
+              <strong> Describtion : </strong> {result.description }
+            </p>
+            <p>
+              <strong>💡Inorganic  Solution:</strong> {result.inorganic_cure}
+            </p>
+            <p>
+              <strong>💡 Organic Solution:</strong> {result.organic_cure}
             </p>
           </div>
+          
 
           <button className="submit-btn" onClick={() => setResult(null)}>
             Check Another Plant

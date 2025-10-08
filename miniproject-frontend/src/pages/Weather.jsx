@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Weather.css";
-import { getCropSuggestions } from "./help/geminiService";
 
 const Weather = () => {
   const navigate = useNavigate();
@@ -11,7 +10,8 @@ const Weather = () => {
   const [loading, setLoading] = useState(false);
   const [suggestedCrops, setSuggestedCrops] = useState([]);
 
-  const apiKey = "7b6bb05c1b0c4e9c55d0c17e8b009178"; // OpenWeather API Key
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+  const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
   const fetchWeather = async (inputCity = city) => {
     if (!inputCity) return;
@@ -53,7 +53,6 @@ const Weather = () => {
         const avgWind =
           daily[date].wind.reduce((a, b) => a + b, 0) / daily[date].wind.length;
 
-        // Farmer-friendly note
         let note = "✅ Normal conditions";
         if (avgHumidity > 80 && daily[date].rain > 5) note = "🌧️ Risk of fungal disease";
         else if (avgHumidity < 60 && avgTemp > 30 && daily[date].rain === 0)
@@ -72,22 +71,29 @@ const Weather = () => {
 
       setDailyData(dailyTable);
 
-      // --- AI-driven crop suggestions ---
+      // --- Fetch crop suggestions from backend ---
       const todayWeather = dailyTable[0];
-    
-if (todayWeather) {
-  const crops = await getCropSuggestions({
-    city: inputCity,
-    soil,
-    weather: {
-      temp: parseFloat(todayWeather.avgTemp),
-      rain: parseFloat(todayWeather.rain),
-      humidity: parseFloat(todayWeather.humidity),
-      wind: parseFloat(todayWeather.wind),
-    },
-  });
-  setSuggestedCrops(crops);
-}
+      if (todayWeather) {
+        const suggestionRes = await fetch(`${BACKEND_URL}/suggested-crops`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            city: inputCity,
+            soil,
+            weather: {
+              temp: parseFloat(todayWeather.avgTemp),
+              rain: parseFloat(todayWeather.rain),
+              humidity: parseFloat(todayWeather.humidity),
+              wind: parseFloat(todayWeather.wind),
+            },
+          }),
+        });
+        console.log(suggestionRes);
+
+        const suggestionData = await suggestionRes.json();
+        // Assume API returns { crops: ["Wheat", "Rice", ...] }
+        setSuggestedCrops(suggestionData.crops || []);
+      }
     } catch (err) {
       console.error(err);
       alert("Failed to fetch weather or crop suggestions");
@@ -157,18 +163,20 @@ if (todayWeather) {
               ))}
             </tbody>
           </table>
-<div className="crop-suggestion">
-  <h3>🌱 Suggested Crops:</h3>
-  <div className="crop-list">
-    {suggestedCrops.map((crop, i) => (
-      <div key={i} className="crop-card">
-        <span className="crop-icon">🌾</span>
-        <span className="crop-name">{crop}</span>
-      </div>
-    ))}
-  </div>
-</div>
 
+          {suggestedCrops.length > 0 && (
+            <div className="crop-suggestion">
+              <h3>🌱 Suggested Crops:</h3>
+              <div className="crop-list">
+                {suggestedCrops.map((crop, i) => (
+                  <div key={i} className="crop-card">
+                    <span className="crop-icon">🌾</span>
+                    <span className="crop-name">{crop}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

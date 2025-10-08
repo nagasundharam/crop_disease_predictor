@@ -1,6 +1,6 @@
 const Mandi = () => {
     return ( <>
-    <h1>Mridulverma</h1>
+    <h1>Coming Soon ...</h1>
     </> );
 }
  

@@ -5,6 +5,8 @@ import fetch from "node-fetch";
 import dotenv from "dotenv";
 import FormData from "form-data";
 import { getDiseaseDetails } from "./gemini.js";
+import { getCropSuggestions } from "./gemini.js"
+import { getFriendlyAdvice } from "./gemini.js";
 
 
 dotenv.config();
@@ -41,6 +43,34 @@ async function queryModel(filePath) {
     return null;
   }
 }
+
+
+
+router.post("/suggested-crops", async (req, res) => {
+  const { city, soil, weather } = req.body;
+  try {
+    const crops = await getCropSuggestions({ city, soil, weather });
+    return res.json({ crops });
+  } catch (err) {
+    return res.status(500).json({ error: "Failed to fetch crop suggestions from Gemini" });
+  }
+});
+
+router.post("/chat", async (req, res) => {
+  const { message } = req.body;
+
+  if (!message) return res.status(400).json({ reply: "Please type your message." });
+
+  try {
+    const reply = await getFriendlyAdvice(message);
+    res.json({ reply });
+  } catch (err) {
+    console.error("Chatbot error:", err);
+    res.status(500).json({ reply: "⚠️ Something went wrong. Please try again." });
+  }
+});
+
+
 
 router.post("/predict", upload.single("image"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
