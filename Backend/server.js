@@ -4,6 +4,10 @@ import predictorRoutes from "./routes/predictor.js";
 //import geminiRoutes from "./routes/gemini.js";
 import dotenv from "dotenv";
 import cropRoutes from "./routes/cropRoutes.js";
+import { MongoClient,ServerApiVersion} from "mongodb";
+
+import createAuthRoutes from "./routes/login.js";
+import createRegisterRoutes from "./routes/register.js";
 
 
 
@@ -13,6 +17,14 @@ app.use(cors());
 app.use(express.json());
 
 // Register routes
+
+const uri = "mongodb+srv://kavimalancs23_db_user:BGJgt6katKyIRnlL@cluster0.oyf7osz.mongodb.net/CropDiseaseApp?retryWrites=true&w=majority&appName=Cluster0";
+const client = new MongoClient(uri, {
+  serverApi: { version: ServerApiVersion.v1 }
+});
+
+let db;
+
 app.use("/", predictorRoutes);
 
 
@@ -20,7 +32,29 @@ app.use("/crop", cropRoutes);
 
 
 
-const PORT = process.env.PORT||3001;
-app.listen(PORT, () => {
-  console.log(`🚀 Backend running on http://localhost:${PORT}`);
+async function connectDB() {
+  try {
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    db = client.db("CropDiseaseApp");
+    console.log("✅ Connected to MongoDB successfully!");
+
+    app.use("/auth", createAuthRoutes(db));
+    app.use("/auth", createRegisterRoutes(db));
+
+    const PORT = process.env.PORT || 3001;
+    app.listen(PORT, () => 
+      console.log(`🚀 Server running on http://localhost:${PORT}`)
+    );
+  } catch (err) {
+    console.error("❌ MongoDB connection failed:", err);
+  }
+}
+
+process.on("SIGINT", async () => {
+  await client.close();
+  console.log("🛑 MongoDB connection closed.");
+  process.exit(0);
 });
+
+connectDB();
