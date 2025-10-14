@@ -41,10 +41,10 @@ const router = createBrowserRouter(
 
       {/* Homepage with nested routes */}
       <Route path="/home" element={<Homepage />}>
-        <Route index element={<Dashboard />} />
-        <Route path="crop-disease" element={<Cropdisease />} />
+        <Route index element={<Cropdisease />} />
+        <Route path="chatbot" element={< Dashboard/>} />
         <Route path="mandi-price" element={<Mandi />} />
-        <Route path="weather" element={<Weather />} />
+        <Route path="weather" element={<Weather/>} />
       </Route>
     </>
   )

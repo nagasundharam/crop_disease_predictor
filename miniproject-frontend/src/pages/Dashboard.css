@@ -32,6 +32,9 @@
   padding: 16px;
   font-size: 18px;
   font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /* Chat window */

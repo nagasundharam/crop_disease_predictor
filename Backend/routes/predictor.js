@@ -7,6 +7,10 @@ import FormData from "form-data";
 import { getDiseaseDetails } from "./gemini.js";
 import { getCropSuggestions } from "./gemini.js"
 import { getFriendlyAdvice } from "./gemini.js";
+//const cors = require("cors");
+import { mandi } from "../services/mandi.js";
+
+
 
 
 dotenv.config();
@@ -69,6 +73,17 @@ router.post("/chat", async (req, res) => {
     res.status(500).json({ reply: "⚠️ Something went wrong. Please try again." });
   }
 });
+router.post("/mandi", async (req, res) => {
+  try {
+    const { state, district, crop } = req.body;
+    const data = await mandi(state, district, crop);
+    res.json({ records: data });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Error fetching mandi data" });
+  }
+});
+
 
 
 

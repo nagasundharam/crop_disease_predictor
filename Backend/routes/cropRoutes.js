@@ -31,6 +31,17 @@ router.post("/predict", upload.single("image"), async (req, res) => {
     res.status(500).json({ error: "Prediction failed", details: error.message });
   }
 });
+router.post("/mandi", async (req, res) => {
+  try {
+    const { state, district, crop } = req.body;
+    const data = await mandi(state, district, crop);
+    res.json({ records: data });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Error fetching mandi data" });
+  }
+});
+
 
 
 

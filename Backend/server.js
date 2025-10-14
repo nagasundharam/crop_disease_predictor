@@ -18,7 +18,7 @@ app.use(express.json());
 
 // Register routes
 
-const uri = "mongodb+srv://kavimalancs23_db_user:BGJgt6katKyIRnlL@cluster0.oyf7osz.mongodb.net/CropDiseaseApp?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGO_DB;
 const client = new MongoClient(uri, {
   serverApi: { version: ServerApiVersion.v1 }
 });

@@ -1,0 +1,152 @@
+.mandi-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  background: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  color: #111827;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.selectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.selectors button {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.selectors button:hover {
+  background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+  transform: scale(1.03);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+  width: 100%;
+}
+
+.result-card {
+  width: 100%;
+  max-width: 360px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease-in-out;
+  text-align: left;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: #d1d5db;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+  gap: 0.4rem;
+}
+
+.result-header h3 {
+  color: #1e293b;
+  font-size: 1.15rem;
+  font-weight: 700;
+  flex: 1 1 auto;
+  word-break: break-word;
+}
+
+.result-header .date {
+  font-size: 0.9rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.commodity-info {
+  margin-bottom: 1rem;
+  color: #374151;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.commodity-info strong {
+  color: #111827;
+}
+
+.price-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  gap: 0.8rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.price-box div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.price-box .label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.price-box .value {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.price-box .highlight {
+  color: #16a34a;
+  font-size: 1.1rem;
+}
+
+.no-data {
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 2rem;
+  text-align: center;
+}

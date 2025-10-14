@@ -1,4 +1,3 @@
-// routes/register.js
 import express from "express";
 import bcrypt from "bcryptjs";
 
@@ -14,8 +13,8 @@ export default function createRegisterRoutes(db) {
       const { username, password, age, address, occupation, landType, contactInfo, cropPreference } = req.body;
 
       // Basic validation
-      if (!username || !password) {
-        return res.status(400).json({ message: "Username & password required" });
+      if (!username || !password || !contactInfo) {
+        return res.status(400).json({ message: "Username, password, and contact info are required" });
       }
 
       if (username.length < 3) {
@@ -26,16 +25,25 @@ export default function createRegisterRoutes(db) {
         return res.status(400).json({ message: "Password must be at least 6 characters long" });
       }
 
-      // Check if username exists
-      const existingUser = await usersCollection.findOne({ username: username.toLowerCase().trim() });
+      // ✅ Check if username, password, or contactInfo already exist
+      const existingUser = await usersCollection.findOne({
+        $or: [
+          { username: username.toLowerCase().trim() },
+          { password: password }, // ⚠️ we'll still hash new passwords, but checking raw here for duplication
+          { contactInfo: contactInfo.trim() }
+        ]
+      });
+
       if (existingUser) {
-        return res.status(409).json({ message: "Username already exists" });
+        return res.status(409).json({
+          message: "A user with the same username, password, or contact info already exists"
+        });
       }
 
-      // Hash password
+      // Hash password before saving
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Insert user
+      // Insert new user
       const result = await usersCollection.insertOne({
         username: username.toLowerCase().trim(),
         password: hashedPassword,
@@ -43,7 +51,7 @@ export default function createRegisterRoutes(db) {
         address: address || "",
         occupation: occupation || "",
         landType: landType || "",
-        contactInfo: contactInfo || "",
+        contactInfo: contactInfo.trim(),
         cropPreference: cropPreference || "",
         createdAt: new Date()
       });
@@ -62,9 +70,6 @@ export default function createRegisterRoutes(db) {
         }
       });
     } catch (err) {
-      if (err.code === 11000) {
-        return res.status(409).json({ message: "Username already exists" });
-      }
       console.error("Registration error:", err);
       res.status(500).json({ message: "❌ Error registering user", error: err.message });
     }
