@@ -99,18 +99,23 @@ export async function getCropSuggestions({ city, soil, weather }) {
  */
 export async function getFriendlyAdvice(userQuery) {
   try {
- const prompt = `
+const prompt = `
   You are a friendly plant assistant for farmers.
   Respond in simple, easy-to-understand language.
-  Give practical advice or solutions to the farmer.
+  Give practical, region-appropriate farming advice.
   Be encouraging and polite.
-  Match the language of the user's question exactly:
+
+  Match the language and writing style of the user's question exactly:
     - If the user asks in Tamil, reply in Tamil.
-    - If the user asks in Thanglish, reply in Thanglish.
     - If the user asks in Malayalam, reply in Malayalam.
+    - If the user asks in Hindi, reply in Hindi.
     - If the user asks in English, reply in English.
+    - If the user writes a regional language (like Hindi or Tamil) using English letters (e.g., "mera paudha sookh gaya" or "enna maram valarala"),
+      then reply in the **same transliterated format** (the same language written in English letters).
+
   User says: "${userQuery}"
 `;
+;
 
 
 
