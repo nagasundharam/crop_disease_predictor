@@ -127,13 +127,21 @@ This project is licensed under the **MIT License**.
 
 ## 👨‍🌾 Author
 **Nagasundharam P**
+
 Backend & Devops 
-**Mridul Verma**  
-AI & Full Stack Developer  
+
+**Mridul Verma** 
+
+AI & Full Stack Developer
+
 **Kavineswar S**
+
 Backend Developer
+
 **Kavimalan K**
+
 Frontend Developer
+
 Project: Crop Disease Prediction & Smart Farming Assistant
 
 
