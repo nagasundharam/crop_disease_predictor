@@ -62,19 +62,18 @@ The system is designed to be **farmer-friendly, accessible, and sustainable**, e
 - CNN (VGG16 – Transfer Learning)
 
 ### 🔹 Backend
-- Flask / FastAPI
 - REST APIs
 
 ### 🔹 Frontend
-- React / Next.js / Streamlit
+- React
 
 ### 🔹 APIs & Services
 - OpenWeatherMap API (Weather)
-- AgriMarket / e-Mandi API (Market Prices)
+- AgriMarket (Market Prices)
 - Google Speech-to-Text & Text-to-Speech (Voice Chatbot)
 
 ### 🔹 Tools
-- Google Colab / Jupyter Notebook
+- Jupyter Notebook
 - VS Code
 - Git & GitHub
 
